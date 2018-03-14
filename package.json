@@ -1,0 +1,47 @@
+{
+    "name": "memory",
+    "version": "1.0.0",
+    "description": "Flagbit Memory Game",
+    "private": true,
+    "scripts": {
+        "watch": "webpack --env.features --watch --progress",
+        "build": "webpack --env.production",
+        "test": "jasmine"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "copy-webpack-plugin": "^4.5.0",
+        "css-loader": "^0.28.10",
+        "extract-text-webpack-plugin": "^3.0.2",
+        "file-loader": "^1.1.11",
+        "font-awesome": "^4.7.0",
+        "http-server": "^0.11.1",
+        "jquery": "^3.3.1",
+        "node-sass": "^4.7.2",
+        "optimize-css-assets-webpack-plugin": "^3.2.0",
+        "progress-bar-webpack-plugin": "^1.11.0",
+        "sass-loader": "^6.0.7",
+        "sass-resources-loader": "^1.3.3",
+        "uglify-es": "3.3.9",
+        "uglifyjs-webpack-plugin": "^1.2.2",
+        "url-loader": "^0.6.2",
+        "vue": "^2.5.13",
+        "vue-loader": "^14.2.1",
+        "vue-qrcode-component": "^2.1.1",
+        "vue-router": "^3.0.1",
+        "vue-style-loader": "^4.0.2",
+        "vue-template-compiler": "^2.5.13",
+        "webpack": "^3.11.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "keywords": [
+        "passwords",
+        "nextcloud",
+        "security"
+    ],
+    "author": "Marius Wieschollek",
+    "license": "SEE LICENSE IN LICENSE"
+}
