@@ -1,18 +1,6 @@
 version: '2'
 
 services:
-  mysql:
-    image: mariadb:10
-    container_name: "memory-mysql"
-    restart: on-failure
-    volumes:
-      - mysql:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_PASSWORD=memory
-      - MYSQL_DATABASE=memory
-      - MYSQL_USER=memory
-
   app:
     image: php:7-fpm-alpine
     container_name: "memory-php"
@@ -43,29 +31,14 @@ services:
     volumes:
       - ./.docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: "memory-phpmyadmin"
+  websocket:
+    build: "./.docker/websocket/"
+    container_name: "memory-websocket"
+    restart: on-failure
     ports:
-      - 8080:80
-    links:
-      - mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: "nextcloud"
-      PMA_ABSOLUTE_URI: http://localhost:8080
-      PMA_HOSTS: mysql
-      PMA_USER: root
-      PMA_PASSWORD: memory
-
-  mail:
-    image: mailhog/mailhog
-    container_name: "memory-mail"
-    user: root
-    ports:
-      - 1080:1080
-    environment:
-      MH_API_BIND_ADDR: 0.0.0.0:1080
-      MH_UI_BIND_ADDR: 0.0.0.0:1080
+      - 8080:8080
+    volumes:
+      - ./src/js/server.js:/var/www/server.js
 
 volumes:
   mysql:

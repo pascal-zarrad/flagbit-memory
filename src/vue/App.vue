@@ -4,19 +4,24 @@
             <card :card="card" v-for="(card, id) in deck" :key="id"/>
             <div v-if="game.started === false" class="popup start">
                 <div>
-                    Choose a Difficulty
-                    <br><br>
                     <div>
-                        <button @click="startGame('easy')">Easy</button>
-                        <button @click="startGame('normal')">Normal</button>
-                        <button @click="startGame('hard')">Hard</button>
+                        <label for="game-user">Name</label><br>
+                        <input id="game-user" type="text" v-model="user"/>
+                    </div>
+                    <div>
+                        <br>
+                        Difficulty
+                        <br>
+                        <button @click="startGame('easy')" :disabled="user.length < 3">Easy</button>
+                        <button @click="startGame('normal')" :disabled="user.length < 3">Normal</button>
+                        <button @click="startGame('hard')" :disabled="user.length < 3">Hard</button>
                     </div>
                 </div>
             </div>
             <div v-if="game.won === true" class="popup win" @click="resetGame">
                 <div>
                     You Won!
-                    <br><br><br>You did it in {{ getTime }} Seconds.
+                    <br><br><br>You did it in {{ time }} Seconds.
                     <br>It took you {{game.turns}} turns to find all pairs.
                     <br><br><br>Click here to start again
                 </div>
@@ -27,6 +32,8 @@
                     <br><br><br>You tried your best but it wasn't enough.
                     <br><br><br>Click here to start again
                 </div>
+            </div>
+            <div v-if="game.locked === true" class="popup locked">
             </div>
         </div>
         <div class="game-stats">
@@ -54,17 +61,13 @@
             return {
                 deck    : GameManager.deck,
                 game    : GameManager.game,
+                user    : '',
                 time    : 0,
                 interval: null
             }
         },
 
         computed: {
-            getTime() {
-                let milliseconds = this.game.endTime - this.game.startTime;
-
-                return new Date(milliseconds).getSeconds()
-            },
             getDeckClass() {
                 if (this.deck.length === 36) return 'deck-large';
                 return 'deck-medium';
@@ -73,13 +76,14 @@
 
         methods: {
             startGame(difficulty) {
-                GameManager.startGame(difficulty);
-                this.deck = GameManager.deck;
-                this.game = GameManager.game;
+                if(GameManager.startGame(difficulty, this.user)) {
+                    this.deck = GameManager.deck;
+                    this.game = GameManager.game;
 
-                this.interval = setInterval(() => { this.time++ }, 1000)
+                    this.interval = setInterval(() => { this.time++ }, 1000)
+                }
             },
-            resetGame(difficulty) {
+            resetGame() {
                 GameManager.resetGame();
                 this.deck = GameManager.deck;
                 this.game = GameManager.game;
@@ -90,8 +94,6 @@
             'game.endTime'() {
                 if (this.game.endTime !== null) {
                     clearInterval(this.interval);
-                    let milliseconds = this.game.endTime - this.game.startTime;
-                    this.time = new Date(milliseconds).getSeconds();
                 }
             }
         }
@@ -138,6 +140,9 @@
 
             &.start {
                 background-color : $color-blue;
+            }
+            &.locked {
+                background-color : transparentize($color-blue, 0.75);
             }
         }
 

@@ -1,4 +1,4 @@
-import GameManager from '@js/Classes/GameManager'
+import GameManager from '@js/Classes/GameManager.ts';
 
 let GM = new GameManager();
 

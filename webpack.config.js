@@ -21,7 +21,7 @@ module.exports = env => {
         new webpack.optimize.CommonsChunkPlugin({name: 'common', minChunks: Infinity})
     ];
 
-    if(production) {
+    if (production) {
         plugins.push(new OptimizeCSSPlugin({cssProcessorOptions: {safe: true}}));
         plugins.push(
             new UglifyJSPlugin(
@@ -43,7 +43,7 @@ module.exports = env => {
 
     return {
         entry  : {
-            app     : __dirname + '/src/js/app.js'
+            app   : __dirname + '/src/js/app.js'
         },
         output : {
             path         : __dirname + '/src/',
@@ -63,6 +63,10 @@ module.exports = env => {
         },
         module : {
             loaders: [
+                {
+                    test: /\.tsx?$/,
+                    loader: 'ts-loader'
+                },
                 {
                     test   : /\.vue$/,
                     loader : 'vue-loader',

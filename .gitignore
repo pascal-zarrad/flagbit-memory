@@ -2,3 +2,4 @@
 
 src/css
 src/dist
+src/js/Classes/*.js
