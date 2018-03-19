@@ -59,7 +59,7 @@ export default class GameManager {
     }
 
     /**
-     * Creates a new deck with the  difficulty of _game
+     * Creates a new deck with the difficulty of _game
      * @private
      */
     _shuffleDeck() {
