@@ -10,8 +10,15 @@ describe('GameManager.startGame', () => {
         ctrl._getRandomNumber = function() {return 1;};
     });
 
+    it('("easy") should return a boolean', () => {
+        let result = ctrl.startGame('easy', 'user');
+        expect(typeof result).toBe('boolean');
+    });
     it('("easy") should return true if the game was started', () => {
-        expect(ctrl.startGame('easy', 'user')).toBe(true);
+        let result = ctrl.startGame('easy', 'user');
+        if(typeof result === 'boolean') {
+            expect(result).toBe(true);
+        }
     });
 
     it('("easy") should set game.difficulty to easy', () => {
@@ -283,19 +290,33 @@ describe('GameManager._getRandomNumber', () => {
         expect(typeof ctrl._getRandomNumber(7)).toBe('number');
     });
     it('should return a whole number', () => {
-        expect(ctrl._getRandomNumber(7) % 1 != 0).toBe(false);
+        let result = ctrl._getRandomNumber(7);
+
+        if(typeof result === 'number') {
+            expect(result % 1 != 0).toBe(false);
+        }
     });
     it('should always return a number smaller than max', () => {
         let isGreater = false;
         for(let i =0; i<256; i++) {
-            if(ctrl._getRandomNumber(7) > 7) isGreater = true;
+            let result = ctrl._getRandomNumber(7);
+            if(typeof result === 'number') {
+                if(result > 7) isGreater = true;
+            } else {
+                isGreater = true;
+            }
         }
         expect(isGreater).toBe(false);
     });
     it('should always return a number greater or equal to zero', () => {
         let isSmaller = false;
         for(let i =0; i<256; i++) {
-            if(ctrl._getRandomNumber(7) < 0) isSmaller = true;
+            let result = ctrl._getRandomNumber(7);
+            if(typeof result === 'number') {
+                if(result < 0) isSmaller = true;
+            } else {
+                isSmaller = true;
+            }
         }
         expect(isSmaller).toBe(false);
     });
@@ -309,7 +330,10 @@ describe('GameManager._getRandomNumber', () => {
         }
         ctrl.deck = deck;
 
-        expect(ctrl._getRandomNumber(7)).toBe(7);
+        let result = ctrl._getRandomNumber(7);
+        if(typeof result === 'number') {
+            expect(result).toBe(7);
+        }
     });
 
     it('should return every number exactly twice in a deck', () => {

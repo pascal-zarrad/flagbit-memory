@@ -23,3 +23,33 @@ let deck = [
     {id: 4, image: 1, show: false}
 ]
 ```
+
+## Tips
+You can run a single test with `fit` instead of `it`:
+```javascript
+// runs all tests
+it('should do something', () => {
+    // test
+});
+
+
+// runs only this test
+fit('should do something', () => {
+    // test
+});
+```
+
+
+You can run a single suite with `fdescribe` instead of `describe`:
+```javascript
+// runs all suites
+describe('GameManager', () => {
+    // tests
+});
+
+
+// runs only this suite
+fdescribe('GameManager', () => {
+    // tests
+});
+```
