@@ -5,8 +5,6 @@ services:
     image: php:7-fpm-alpine
     container_name: "memory-php"
     restart: on-failure
-    links:
-      - mysql
     volumes:
       - ./src/:/var/www/html/
     environment:

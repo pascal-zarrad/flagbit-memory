@@ -12,12 +12,18 @@ define(["require", "exports"], function (require, exports) {
             get: function () {
                 return this._deck;
             },
+            set: function (deck) {
+                this._deck = deck;
+            },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(GameManager.prototype, "game", {
             get: function () {
                 return this._game;
+            },
+            set: function (game) {
+                this._game = game;
             },
             enumerable: true,
             configurable: true
@@ -79,7 +85,7 @@ define(["require", "exports"], function (require, exports) {
          */
         GameManager.prototype._getRandomNumber = function (max) {
             var tries = 0;
-            loop: while (tries < 100) {
+            loop: while (tries < 256) {
                 var rand = Math.round(Math.random() * max), count = 0;
                 tries++;
                 for (var i = 0; i < this._deck.length; i++) {
@@ -101,7 +107,7 @@ define(["require", "exports"], function (require, exports) {
          * @param id
          */
         GameManager.prototype.showCard = function (id) {
-            if (this._deck[id].show)
+            if (this._deck[id].show || this.game.locked)
                 return;
             this._game.turns++;
             this._deck[id].show = true;

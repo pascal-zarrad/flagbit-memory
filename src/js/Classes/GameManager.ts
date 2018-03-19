@@ -9,8 +9,16 @@ export default class GameManager {
         return this._deck;
     }
 
+    set deck(deck: any[]) {
+        this._deck = deck;
+    }
+
     get game() {
         return this._game;
+    }
+
+    set game(game: any) {
+        this._game = game;
     }
 
     get timeout() {
@@ -74,7 +82,7 @@ export default class GameManager {
      */
     _getRandomNumber(max: number) {
         let tries = 0;
-        loop: while (tries < 100) {
+        loop: while (tries < 256) {
             let rand  = Math.round(Math.random() * max),
                 count = 0;
             tries++;
@@ -99,7 +107,7 @@ export default class GameManager {
      * @param id
      */
     showCard(id: number) {
-        if (this._deck[id].show) return;
+        if (this._deck[id].show || this.game.locked) return;
         this._game.turns++;
         this._deck[id].show = true;
 
