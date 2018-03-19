@@ -160,6 +160,7 @@
         border     : 1px solid $color-grey;
         text-align : center;
         padding    : 15px 30px;
+        background : transparentize($color-white, 0.5);
 
         .title {
             color       : $color-blue;
