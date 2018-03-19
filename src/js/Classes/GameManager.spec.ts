@@ -85,8 +85,9 @@ describe('GameManager.startGame', () => {
     });
 });
 
-describe('GameManager.showCard', () => {
 
+
+describe('GameManager.showCard', () => {
     let ctrl: GameManager;
 
     beforeEach(() => {
@@ -225,3 +226,101 @@ describe('GameManager.showCard', () => {
     });
 });
 
+
+
+describe('GameManager.resetGame', () => {
+    let ctrl: GameManager;
+
+    beforeEach(() => {
+        ctrl = new GameManager();
+
+        ctrl.game = {
+            difficulty: 'easy',
+            startTime : new Date(),
+            endTime   : new Date(),
+            won       : true,
+            lost      : false,
+            started   : true,
+            locked    : false,
+            turns     : 32
+        };
+
+        let deck = [];
+        for(let i =0; i<16; i++) {
+            let image = i < 8 ? i:i-8;
+            deck.push({id: i, image: image, show: false})
+        }
+
+        ctrl.deck = deck;
+    });
+
+    it('should clear the deck', () => {
+        ctrl.resetGame();
+
+        expect(ctrl.deck.length).toBe(0);
+    });
+    it('should reset the game', () => {
+        ctrl.resetGame();
+
+        expect(ctrl.game).toEqual({startTime: null, endTime: null, turns: 0, started: false, won: false, lost: false, locked: false});
+    });
+});
+
+
+
+describe('GameManager._getRandomNumber', () => {
+    let ctrl: GameManager;
+
+    beforeEach(() => {
+        ctrl = new GameManager();
+    });
+
+    it('should return a number', () => {
+        expect(typeof ctrl._getRandomNumber(7)).toBe('number');
+    });
+    it('should return a whole number', () => {
+        expect(ctrl._getRandomNumber(7) % 1 != 0).toBe(false);
+    });
+    it('should always return a number smaller than max', () => {
+        let isGreater = false;
+        for(let i =0; i<256; i++) {
+            if(ctrl._getRandomNumber(7) > 7) isGreater = true;
+        }
+        expect(isGreater).toBe(false);
+    });
+    it('should always return a number greater or equal to zero', () => {
+        let isSmaller = false;
+        for(let i =0; i<256; i++) {
+            if(ctrl._getRandomNumber(7) < 0) isSmaller = true;
+        }
+        expect(isSmaller).toBe(false);
+    });
+
+    it('should guarantee a valid deck', () => {
+
+        let deck = [];
+        for(let i =0; i<15; i++) {
+            let image = i < 8 ? i:i-8;
+            deck.push({id: i, image: image, show: false})
+        }
+        ctrl.deck = deck;
+
+        expect(ctrl._getRandomNumber(7)).toBe(7);
+    });
+
+    it('should return every number exactly twice in a deck', () => {
+
+        let deck = ctrl.deck;
+        for(let i =0; i<16; i++) {
+            deck.push({id: i, image: ctrl._getRandomNumber(7), show: false})
+        }
+
+        for(let i =0; i<8; i++) {
+            let occurrences = 0;
+            for(let j =0; j<deck.length; j++) {
+                if(deck[j].image === i) occurrences++;
+            }
+            expect(occurrences).toBe(2);
+        }
+    });
+});
