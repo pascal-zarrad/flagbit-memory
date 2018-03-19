@@ -10,6 +10,10 @@ describe('GameManager.startGame', () => {
         ctrl._getRandomNumber = function() {return 1;};
     });
 
+    it('("easy") should return true if the game was started', () => {
+        expect(ctrl.startGame('easy', 'user')).toBe(true);
+    });
+
     it('("easy") should set game.difficulty to easy', () => {
         ctrl.startGame('easy', 'user');
         let game = ctrl.game;
