@@ -44,52 +44,26 @@ export default class GameManager {
      * @param user
      */
     startGame(difficulty: string, user: string) {
+        this._game.startTime = new Date();
+        this._game.started= true;
+        this._deck = [];
+        let durchlaeufe = 36;
         if(difficulty == "easy"){
-            this._game.difficulty= "easy";
-            this._game.startTime = new Date();
-            this._game.started= true;
-            this._deck = [];
-            for(let x = 0; x<16;++x)
-            {
-                let card = {id: x, image: this._getRandomNumber(7), show: false}
-                this._deck.push(card);
-            }
-
-            
-
-            return true;
+            durchlaeufe = 16;
         }
-        else if(difficulty == "normal"){
-            this._game.difficulty= "normal";
-            this._game.startTime = new Date();
-            this._game.started= true;
-            this._deck = [];
-            for(let x = 0; x<36;++x){
-                let card = {id: x, image: this._getRandomNumber(17), show: false}
-                this._deck.push(card);
-            }
-
-            
-
-            return true;
-        }
-        else if(difficulty == "hard"){
-            this._game.difficulty= "hard";
-            this._game.startTime = new Date();
-            this._game.started= true;
-            this._deck = [];
-            for(let x = 0; x<36;++x){
-                let card = {id: x, image: this._getRandomNumber(17), show: false}
-                this._deck.push(card);
-            }
+        
+        if(difficulty == "hard"){
+                               
             this._timeout= setTimeout(() =>{
                 this._game.lost = true;
             }, 70000);
-
-            
-
-            return true;
         }
+        this._game.difficulty = difficulty;
+        for(let x = 0; x<durchlaeufe;++x){
+            let card = {id: x, image: this._getRandomNumber(durchlaeufe/2-1), show: false}
+            this._deck.push(card);
+        }
+        return true;
         
     }
 
