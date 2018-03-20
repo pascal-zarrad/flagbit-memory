@@ -1,7 +1,7 @@
 import GameManager from './GameManager';
 
 
-describe('GameManager.startGame', () => {
+fdescribe('GameManager.startGame', () => {
 
     let ctrl: GameManager;
 
@@ -83,7 +83,7 @@ describe('GameManager.startGame', () => {
 
     it('cards in deck should match card specification: {id: int, image: int, show: bool}', () => {
         ctrl.startGame('easy', 'user');
-
+        
         expect(ctrl.deck[0]).toEqual({id: 0, image:1, show: false});
     });
     it('all cards in deck should match card specification: {id: int, image: int, show: bool}', () => {

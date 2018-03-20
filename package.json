@@ -9,8 +9,7 @@
         "build": "webpack --env.production",
         "test": "tsc && karma start karma.conf.js"
     },
-    "dependencies": {
-    },
+    "dependencies": {},
     "devDependencies": {
         "@types/jasmine": "^2.8.6",
         "colors": "^1.2.1",
