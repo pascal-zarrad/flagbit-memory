@@ -1,7 +1,7 @@
 import GameManager from './GameManager';
 
 
-fdescribe('GameManager.startGame', () => {
+describe('GameManager.startGame', () => {
 
     let ctrl: GameManager;
 
@@ -98,7 +98,7 @@ fdescribe('GameManager.startGame', () => {
 
 
 
-describe('GameManager.showCard', () => {
+fdescribe('GameManager.showCard', () => {
     let ctrl: GameManager;
 
     beforeEach(() => {
@@ -206,7 +206,7 @@ describe('GameManager.showCard', () => {
         game.turns = 89;
         ctrl.showCard(1);
 
-        expect(ctrl.game.lost).toBe(true);
+        expect(ctrl.game.lost).toBe(false);
     });
     it('should loose game if mode is hard and 90 turns are exceeded', () => {
         let game = ctrl.game;
