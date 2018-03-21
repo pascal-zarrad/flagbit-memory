@@ -25,15 +25,11 @@ export default class GameManager {
         return this._timeout;
     }
 
-    get status() {
-        return this._status;
-    }
-
     constructor() {
         this._deck = [];
         this._status = {choice: []};
         this._timeout = null;
-        this._game = {startTime: null, endTime: null, turns: 0, started: false, won: false, lost: false, locked: false}
+        this._game = {difficulty: null, startTime: null, endTime: null, turns: 0, started: false, won: false, lost: false, locked: false}
     }
 
     /**
@@ -43,16 +39,10 @@ export default class GameManager {
      * @param user
      */
     startGame(difficulty: string, user: string) {
-        this._game = {
-            difficulty: difficulty,
-            startTime : new Date(),
-            endTime   : null,
-            won       : false,
-            lost      : false,
-            started   : true,
-            locked    : false,
-            turns     : 0
-        };
+        this._game.difficulty = difficulty;
+        this._game.startTime = new Date();
+        this._game.started = true;
+
         if (difficulty === 'hard') this._timeout = setTimeout(() => { this._looseGame() }, 60000);
         this._shuffleDeck();
         return true;
@@ -109,25 +99,19 @@ export default class GameManager {
     showCard(id: number) {
         if (this._deck[id].show || this.game.locked) return;
         this._game.turns++;
-        this._deck[id].show = true;
+        let card = this._deck[id];
 
-
-        if (this._status.choice.length === 0) {
-            this._status.choice = [id];
-        } else if (this._status.choice.length === 1) {
-            let cardId = this._status.choice[0];
-            this._status.choice.push(id);
-
-            if (this._deck[cardId].image === this._deck[id].image) {
-                this._status.choice = [];
+        if (this._status.choice.length === 2) {
+            let [card1, card2] = this._status.choice;
+            if(card1.image !== card2.image) {
+                card1.show = false;
+                card2.show = false;
             }
-        } else {
-            for (let i in this._status.choice) {
-                let cardId = this._status.choice[i];
-                this._deck[cardId].show = false;
-            }
-            this._status.choice = [id];
+            this._status.choice = [];
         }
+
+        card.show = true;
+        this._status.choice.push(card);
 
         this._checkIfGameFinished()
     }
@@ -137,7 +121,8 @@ export default class GameManager {
      */
     resetGame() {
         this._deck = [];
-        this._game = {startTime: null, endTime: null, turns: 0, started: false, won: false, lost: false, locked: false};
+        this._status = {choice: []};
+        this._game = {difficulty: null, startTime: null, endTime: null, turns: 0, started: false, won: false, lost: false, locked: false};
     }
 
     /**
@@ -148,11 +133,14 @@ export default class GameManager {
     _checkIfGameFinished() {
         let allCardsVisible = true;
         for (let i = 0; i < this._deck.length; i++) {
-            if (this._deck[i].show === false) allCardsVisible = false;
+            if (this._deck[i].show === false) {
+                allCardsVisible = false;
+                break;
+            }
         }
         if (allCardsVisible) {
             this._winGame();
-        } else if (this._game.difficulty === 'hard' && this._game.turns >= 90) {
+        } else if (this._game.difficulty === 'hard' && this._game.turns > 90) {
             this._looseGame();
         }
     }
