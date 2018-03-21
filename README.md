@@ -1,3 +1,17 @@
+# Das MEMORY-Projekt
+
+> Ziel des Projektes ist es, das Kartenspiel Memory mittels JavaScript im Browser umzusetzen.
+
+Bei Memory werden Karten mit Bildern umgedreht auf dem quadratischen Spielfeld ausgelegt.
+Jede Karte ist exakt zwei mal vorhanden. Jeder Spieler kann mit einem Zug zwei Karten aufdecken.
+Wenn die Karten das gleiche Bild zeigen bleiben sie aufgedeckt. Andernfalls werden Sie wieder umgedreht.
+Ziel des Spiels ist es, möglichst schnell alle Kartenpaare zu finden.
+
+Im Projektordner ist bereits die grafische Oberfläche des Spiels umgesetzt worden.
+Die eigentliche Logik des Spiels soll in der Datei src/js/Classes/GameManager.ts implementiert werden.
+Dies ist dann zufriedenstellend erfolgt, wenn alle Testfälle erfolgreich durchlaufen werden.
+Die Tests können mit dem Kommandozeilenbefehl "npm run test" ausgeführt werden.
+
 ## Setup
 1. Run `docker-compose up -d`
 2. Run `npm install`
@@ -24,7 +38,7 @@ let deck = [
 ]
 ```
 
-## Tips
+## Tests
 You can run a single test with `fit` instead of `it`:
 ```javascript
 // runs all tests
