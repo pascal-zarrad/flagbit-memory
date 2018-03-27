@@ -75,35 +75,6 @@ describe('GameManager.startGame', () => {
         expect(ctrl.deck.length).toBe(16);
     });
 
-    it('("normal") should set game.difficulty to normal', () => {
-        ctrl.startGame('normal', 'user');
-        let game = ctrl.game;
-
-        expect(ctrl.game.difficulty).toBe('normal');
-    });
-
-    it('("normal") should create a deck with 36 cards', () => {
-        ctrl.startGame('normal', 'user');
-        expect(ctrl.deck.length).toBe(36);
-    });
-
-    it('("hard") should set game.difficulty to hard', () => {
-        ctrl.startGame('hard', 'user');
-        let game = ctrl.game;
-
-        expect(ctrl.game.difficulty).toBe('hard');
-    });
-
-    it('("hard") should create a deck with 36 cards', () => {
-        ctrl.startGame('hard', 'user');
-        expect(ctrl.deck.length).toBe(36);
-    });
-
-    it('("hard") should set a timeout', () => {
-        ctrl.startGame('hard', 'user');
-        expect(ctrl.timeout).not.toBe(null);
-    });
-
     it('cards in deck should match card specification: {id: int, image: int, show: bool}', () => {
         ctrl.startGame('easy', 'user');
 
@@ -244,24 +215,6 @@ describe('GameManager.showCard', () => {
         expect(ctrl.game.endTime instanceof Date).toBe(true);
     });
 
-    it('should not loose game if mode is hard and 90 turns are not exceeded', () => {
-        let game = ctrl.game;
-        game.difficulty = 'hard';
-        game.turns = 89;
-        ctrl.showCard(1);
-
-        expect(ctrl.game.lost).toBe(false);
-    });
-
-    it('should loose game if mode is hard and 90 turns are exceeded', () => {
-        let game = ctrl.game;
-        game.difficulty = 'hard';
-        game.turns = 90;
-        ctrl.showCard(1);
-
-        expect(ctrl.game.lost).toBe(true);
-    });
-
     it('should not win game if already lost', () => {
         let game = ctrl.game;
         game.lost = true;
@@ -271,16 +224,6 @@ describe('GameManager.showCard', () => {
         }
 
         expect(ctrl.game.won).toBe(false);
-    });
-
-    it('should not loose game if already won', () => {
-        let game = ctrl.game;
-        game.difficulty = 'hard';
-        game.won = true;
-        game.turns = 90;
-        ctrl.showCard(1);
-
-        expect(ctrl.game.lost).toBe(false);
     });
 });
 
