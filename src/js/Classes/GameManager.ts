@@ -7,7 +7,7 @@ export default class GameManager {
 
     // noinspection JSMethodCanBeStatic
     get features() {
-        return 'minimal';
+        return 'full';
     }
 
     get deck() {
