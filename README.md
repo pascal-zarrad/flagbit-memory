@@ -73,3 +73,4 @@ fdescribe('GameManager', () => {
 - [MDN](https://developer.mozilla.org/de/) provides a lot of information on JavaScript
 - [SelfHTML](https://wiki.selfhtml.org/wiki/JavaScript) is good for beginners
 - [W3C Schools](https://www.w3schools.com/js/default.asp) has a lot of tutorials
+- [Javascript Cheat Sheet](https://github.com/mbeaudru/modern-js-cheatsheet/blob/master/README.md)
