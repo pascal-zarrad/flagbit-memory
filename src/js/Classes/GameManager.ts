@@ -5,6 +5,11 @@ export default class GameManager {
     private _status: any;
     private _timeout: number|null;
 
+    // noinspection JSMethodCanBeStatic
+    get features() {
+        return 'full';
+    }
+
     get deck() {
         return this._deck;
     }

@@ -1,36 +1,41 @@
 <template>
     <div class="flagbit-memory">
         <div class="memory-container" :class="getDeckClass">
-            <card :card="card" v-for="(card, id) in deck" :key="id"/>
+            <card :card="card" v-for="(card, id) in deck" :key="id" />
             <div v-if="game.started === false" class="popup start">
-                <div>
+                <div v-if="features === 'full'">
                     <div>
                         <label for="game-user">Name</label><br>
                         <input id="game-user" type="text" v-model="user"/>
                     </div>
                     <div>
-                        <br>
-                        Difficulty
-                        <br>
+                        <br>Difficulty<br>
                         <button @click="startGame('easy')" :disabled="user.length < 3">Easy</button>
                         <button @click="startGame('normal')" :disabled="user.length < 3">Normal</button>
                         <button @click="startGame('hard')" :disabled="user.length < 3">Hard</button>
                     </div>
                 </div>
+                <div v-else>
+                    <div>
+                        <button @click="startGame('easy')">Start Game</button>
+                    </div>
+                </div>
             </div>
-            <div v-if="game.won === true" class="popup win" @click="resetGame">
+            <div v-if="game.won === true" class="popup win">
                 <div>
                     You Won!
                     <br><br><br>You did it in {{ time }} Seconds.
                     <br>It took you {{game.turns}} turns to find all pairs.
-                    <br><br><br>Click here to start again
+                    <br><br><br>
+                    <button @click="resetGame">Click here to start again</button>
                 </div>
             </div>
             <div v-if="game.lost === true" class="popup lose" @click="resetGame">
                 <div>
                     You lost!
                     <br><br><br>You tried your best but it wasn't enough.
-                    <br><br><br>Click here to start again
+                    <br><br><br>
+                    <button @click="resetGame">Click here to start again</button>
                 </div>
             </div>
             <div v-if="game.locked === true" class="popup locked">
@@ -59,6 +64,7 @@
 
         data() {
             return {
+                features: GameManager.features,
                 deck    : GameManager.deck,
                 game    : GameManager.game,
                 user    : '',
@@ -76,7 +82,7 @@
 
         methods: {
             startGame(difficulty) {
-                if(GameManager.startGame(difficulty, this.user)) {
+                if (GameManager.startGame(difficulty, this.user)) {
                     this.deck = GameManager.deck;
                     this.game = GameManager.game;
 
@@ -133,7 +139,6 @@
             right            : 0;
             left             : 0;
             bottom           : 0;
-            cursor           : pointer;
             color            : $color-white;
             font-size        : 20pt;
             text-align       : center;
@@ -150,6 +155,26 @@
             grid-template-columns : 1fr 1fr 1fr 1fr 1fr 1fr;
             grid-column-gap       : 7px;
             grid-row-gap          : 7px;
+        }
+
+        input,
+        button {
+            background-color : $color-white;
+            color            : $color-blue;
+            font-family      : Flagbit, sans-serif;
+            padding          : 15px 15px 13px;
+            border           : none;
+            border-radius    : 5px;
+            font-size        : 12pt;
+
+            &:disabled {
+                background-color : $color-grey;
+                cursor           : default;
+            }
+        }
+
+        button {
+            cursor : pointer;
         }
     }
 
