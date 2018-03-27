@@ -2,7 +2,6 @@ import GameManager from './GameManager';
 
 
 describe('GameManager.startGame', () => {
-
     let ctrl: GameManager;
 
     beforeEach(() => {
