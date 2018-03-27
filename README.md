@@ -23,6 +23,10 @@ The tests can be executed with the command "npm run test".
  - `npm run test` runs tests
  - `npm run watch` builds the application and watches for changes
  - `npm run build` builds the whole application
+ - `git pull` fetches new code from the server
+ - `git commit` commit all current changes to the local repository
+ - `git push` push changes from the local repository to the server
+ - `git reset --hard origin/current` discard local changes
 
 ## Specifications
 The game uses a virtual deck, which is an array of cards.
@@ -74,3 +78,7 @@ fdescribe('GameManager', () => {
 - [SelfHTML](https://wiki.selfhtml.org/wiki/JavaScript) is good for beginners
 - [W3C Schools](https://www.w3schools.com/js/default.asp) has a lot of tutorials
 - [Javascript Cheat Sheet](https://github.com/mbeaudru/modern-js-cheatsheet/blob/master/README.md)
+
+## Switch Scenario
+- `git checkout SCENARIO-1 -- src/js/Classes/GameManager.spec.ts` get the advanced tests
+- `git checkout SCENARIO-2 -- src/js/Classes/GameManager.spec.ts` get the basic tests
