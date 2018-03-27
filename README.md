@@ -1,3 +1,17 @@
+# The MEMORY-Project
+
+> The aim of the project is to implement the Memory card game in the browser using JavaScript.
+
+In Memory, cards with pictures are laid out on the square playing field upside down.
+Each card is available exactly two times. Each player can open two cards in one move.
+If the cards show the same image, they remain face-up. Otherwise, you will be turned around again.
+The aim of the game is to find all pairs of cards as quickly as possible.
+
+The graphical interface of the game has already been implemented in the project folder.
+The actual logic of the game should be implemented in the file src/js/Classes/GameManager.ts.
+This has been done satisfactorily if all test cases are run successfully.
+The tests can be executed with the command "npm run test".
+
 ## Setup
 1. Run `docker-compose up -d`
 2. Run `npm install`
@@ -24,7 +38,7 @@ let deck = [
 ]
 ```
 
-## Tips
+## Tests
 You can run a single test with `fit` instead of `it`:
 ```javascript
 // runs all tests
