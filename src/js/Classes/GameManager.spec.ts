@@ -9,6 +9,10 @@ describe('GameManager.startGame', () => {
         ctrl._getRandomNumber = function() {return 1;};
     });
 
+    it('this._game should not be modified before function called', () => {
+        expect(ctrl.game).toEqual({difficulty: null, startTime: null, endTime: null, turns: 0, started: false, won: false, lost: false, locked: false});
+    });
+
     it('("easy") should return a boolean', () => {
         let result = ctrl.startGame('easy', 'user');
         expect(typeof result).toBe('boolean');
@@ -264,15 +268,6 @@ describe('GameManager.showCard', () => {
         expect(deck[1].show).toBe(true);
         expect(deck[9].show).toBe(true);
         expect(deck[2].show).toBe(true);
-    });
-
-    it('should not open card if locked', () => {
-        let game = ctrl.game;
-        game.locked = true;
-        let deck = ctrl.deck;
-        ctrl.showCard(1);
-
-        expect(deck[1].show).toBe(false);
     });
 
     it('should mark game as won if all cards are open', () => {
