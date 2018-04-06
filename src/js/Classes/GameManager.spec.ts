@@ -270,15 +270,6 @@ describe('GameManager.showCard', () => {
         expect(deck[2].show).toBe(true);
     });
 
-    it('should not open card if locked', () => {
-        let game = ctrl.game;
-        game.locked = true;
-        let deck = ctrl.deck;
-        ctrl.showCard(1);
-
-        expect(deck[1].show).toBe(false);
-    });
-
     it('should mark game as won if all cards are open', () => {
         for(let i=0; i<8; i++) {
             ctrl.showCard(i);
