@@ -32,7 +32,7 @@ export default class GameManager {
 
     constructor() {
         this._deck = [];
-        this._status = {};
+        this._status = [];
         this._timeout = null;
         this._game = {difficulty: null, startTime: null, endTime: null, turns: 0, started: false, won: false, lost: false, locked: false}
     }
@@ -44,6 +44,18 @@ export default class GameManager {
      * @param user
      */
     startGame(difficulty: string, user: string) {
+        this._game.difficulty = difficulty;
+        this._game.startTime = new Date();
+        this._game.started = true;
+        this._deck = [];
+        for (var i = 0; i < 16; i++) {
+         let card = {id: i, image: 1, show: false}
+         let random = this._getRandomNumber(7);
+         this._deck.push( card ); 
+         this._deck[i].image = random
+    
+        }
+        return true; 
     }
 
     /**
@@ -53,13 +65,29 @@ export default class GameManager {
     _shuffleDeck() {
     }
 
-    /**
+    /**;
      * Creates a new random number which occurs at maximum twice in _deck
      *
      * @param max
      * @private
+     * @returns number
+     *
      */
-    _getRandomNumber(max: number) {
+    _getRandomNumber(max: number): number {
+        let randomNumber = Math.round(Math.random()*max);
+    //    randomNumber bereits 2x vorhanden, neu würfeln?
+        
+        let i = 0
+        this._deck.forEach(function(Element){
+            
+        if (Element.image == randomNumber) {
+            i++
+        
+        }
+        }
+    )   
+        if ( i == 2) return this._getRandomNumber(max);
+                return randomNumber
     }
 
     /**
@@ -69,8 +97,45 @@ export default class GameManager {
      * @param id
      */
     showCard(id: number) {
-    }
+         let card = this._deck [id];
+    if (this._game.locked != true) {
+        
+    
+        if(card.show == false){
+            this._game.turns++
+            card.show = true; 
+            if (this._status.length == 2 ){
+                if (this._status [0].image != this._status [1].image) {
+                    this._status [0].show = false
+                    this._status [1].show = false
+                }
+                this._status.pop()
+                this._status.pop()
+                
+            } 
+            this._status.push ( card )
 
+
+            let r = 0
+
+            this._deck.forEach(function(element){
+                if (element.show == true) {
+
+                }
+            
+                else { r++
+
+                }
+            })
+
+
+            if ( r == 0) {
+                this._game.won = true;
+                this._game.endTime = new Date ()
+            }
+        }
+    }
+    }
     /**
      *
      */

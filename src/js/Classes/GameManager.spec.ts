@@ -181,7 +181,7 @@ describe('GameManager._getRandomNumber', () => {
 
 
 
-describe('GameManager.showCard', () => {
+fdescribe('GameManager.showCard', () => {
     let ctrl: GameManager;
 
     beforeEach(() => {
@@ -284,7 +284,7 @@ describe('GameManager.showCard', () => {
         expect(ctrl.game.won).toBe(true);
     });
 
-    it('should fill endTime if finished', () => {
+    fit('should fill endTime if finished', () => {
         for(let i=0; i<8; i++) {
             ctrl.showCard(i);
             ctrl.showCard(i+8);
