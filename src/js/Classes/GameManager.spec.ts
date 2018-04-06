@@ -9,6 +9,10 @@ describe('GameManager.startGame', () => {
         ctrl._getRandomNumber = function() {return 1;};
     });
 
+    it('this._game should not be modified before function called', () => {
+        expect(ctrl.game).toEqual({difficulty: null, startTime: null, endTime: null, turns: 0, started: false, won: false, lost: false, locked: false});
+    });
+
     it('("easy") should return a boolean', () => {
         let result = ctrl.startGame('easy', 'user');
         expect(typeof result).toBe('boolean');
