@@ -12,7 +12,7 @@
  * Change the values below to fit your needs!
  */
 const SERVER_CONFIG = {
-  PORT: 8080
+    PORT: 8080
 };
 
 /**

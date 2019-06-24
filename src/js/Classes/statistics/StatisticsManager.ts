@@ -56,6 +56,39 @@ export default class StatisticsManager {
     }
 
     /**
+     * Serializes a Statistics object into a JSON string and then encodes it into Base64.
+     * The Base64-string can be applied as a GET-parameter to an URL.
+     * A false as return value indicates a failed serialization.
+     *
+     * @param statistics
+     * @private
+     * @returns string | boolean
+     */
+    private static _serializeStatistics(statistics: Statistics): string | boolean {
+        let statisticsJSON = JSON.stringify(statistics);
+        if (!statisticsJSON) {
+            return false;
+        }
+        return statisticsJSON;
+
+    }
+
+    /**
+     * Deserialize a JSON string to get a Object with which can be worked.
+     * A false as return value indicates a failed deserialization
+     *
+     * @param statisticsJSON
+     */
+    private static _deserializeStatistics(statisticsJSON: string): Statistics | boolean {
+        let statistics = <Statistics>JSON.parse(statisticsJSON);
+        if (!statistics) {
+            return false;
+        } else {
+            return statistics;
+        }
+    }
+
+    /**
      * Send statistics of a game to the statistics REST API
      *
      * @param statistics
@@ -101,7 +134,7 @@ export default class StatisticsManager {
         console.log("Statistics: Requesting highscores...");
         let ajaxURL = CLIENT_CONFIG.AJAX_URL + "/highscores";
         let ajax = new XMLHttpRequest();
-        ajax.onreadystatechange= () => {
+        ajax.onreadystatechange = () => {
             if (ajax.readyState === XMLHttpRequest.DONE) {
                 switch (ajax.status) {
                     case 200:
@@ -139,39 +172,6 @@ export default class StatisticsManager {
         }
         statistics = <Statistics>statistics;
         this._highscoreStatistics = statistics;
-    }
-
-    /**
-     * Serializes a Statistics object into a JSON string and then encodes it into Base64.
-     * The Base64-string can be applied as a GET-parameter to an URL.
-     * A false as return value indicates a failed serialization.
-     *
-     * @param statistics
-     * @private
-     * @returns string | boolean
-     */
-    private static _serializeStatistics(statistics: Statistics): string | boolean {
-        let statisticsJSON = JSON.stringify(statistics);
-        if (!statisticsJSON) {
-            return false;
-        }
-        return statisticsJSON;
-
-    }
-
-    /**
-     * Deserialize a JSON string to get a Object with which can be worked.
-     * A false as return value indicates a failed deserialization
-     *
-     * @param statisticsJSON
-     */
-    private static _deserializeStatistics(statisticsJSON: string): Statistics | boolean {
-        let statistics = <Statistics>JSON.parse(statisticsJSON);
-        if (!statistics) {
-            return false;
-        } else {
-            return statistics;
-        }
     }
 
 }

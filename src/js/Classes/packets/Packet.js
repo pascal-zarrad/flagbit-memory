@@ -1,6 +1,6 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", {value: true});
     var Packet = /** @class */ (function () {
         function Packet(gameID, clientID, packetID, clients) {
             this.gameID = gameID;
@@ -8,6 +8,7 @@ define(["require", "exports"], function (require, exports) {
             this.packetID = packetID;
             this.clients = clients;
         }
+
         return Packet;
     }());
     exports.default = Packet;

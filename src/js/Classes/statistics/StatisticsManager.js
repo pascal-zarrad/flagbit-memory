@@ -1,9 +1,9 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-}
+    return (mod && mod.__esModule) ? mod : {"default": mod};
+};
 define(["require", "exports", "./Statistics", "../../config.client"], function (require, exports, Statistics_1, config_client_1) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", {value: true});
     config_client_1 = __importDefault(config_client_1);
     var StatisticsManager = /** @class */ (function () {
         function StatisticsManager() {
@@ -34,8 +34,7 @@ define(["require", "exports", "./Statistics", "../../config.client"], function (
                             var responseError = JSON.parse(_this._ajax.responseText);
                             if (!responseError) {
                                 console.error("Statistics: An error occurred when processing a response containing an error!");
-                            }
-                            else {
+                            } else {
                                 console.error("Statistics: An error occurred while processing a statistics request. Error code: " + responseError.errorCode + " - " + responseError.errorMessage);
                             }
                             break;
@@ -48,6 +47,7 @@ define(["require", "exports", "./Statistics", "../../config.client"], function (
             this._ajax.onreadystatechange = this._ajaxResponseHandler;
             this.requestHighScores();
         }
+
         Object.defineProperty(StatisticsManager.prototype, "currentStatistics", {
             get: function () {
                 return this._currentStatistics;
@@ -145,8 +145,7 @@ define(["require", "exports", "./Statistics", "../../config.client"], function (
             var statistics = JSON.parse(statisticsJSON);
             if (!statistics) {
                 return false;
-            }
-            else {
+            } else {
                 return statistics;
             }
         };
