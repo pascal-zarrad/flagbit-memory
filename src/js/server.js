@@ -1,6 +1,7 @@
 const WebSocket = require('ws');
+const SERVER_CONFIG = require('./config.server');
 
-const wss = new WebSocket.Server({ port: 8080 });
+const wss = new WebSocket.Server({port: SERVER_CONFIG.PORT});
 
 // Broadcast to all.
 wss.broadcast = function broadcast(data) {

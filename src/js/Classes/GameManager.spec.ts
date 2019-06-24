@@ -6,11 +6,22 @@ describe('GameManager.startGame', () => {
 
     beforeEach(() => {
         ctrl = new GameManager();
-        ctrl._getRandomNumber = function() {return 1;};
+        ctrl._getRandomNumber = function () {
+            return 1;
+        };
     });
 
     it('this._game should not be modified before function called', () => {
-        expect(ctrl.game).toEqual({difficulty: null, startTime: null, endTime: null, turns: 0, started: false, won: false, lost: false, locked: false});
+        expect(ctrl.game).toEqual({
+            difficulty: null,
+            startTime: null,
+            endTime: null,
+            turns: 0,
+            started: false,
+            won: false,
+            lost: false,
+            locked: false
+        });
     });
 
     it('("easy") should return a boolean', () => {
@@ -20,7 +31,7 @@ describe('GameManager.startGame', () => {
 
     it('("easy") should return true if the game was started', () => {
         let result = ctrl.startGame('easy', 'user');
-        if(typeof result === 'boolean') {
+        if (typeof result === 'boolean') {
             expect(result).toBe(true);
         }
     });
@@ -81,20 +92,20 @@ describe('GameManager.startGame', () => {
     it('cards in deck should match card specification: {id: int, image: int, show: bool}', () => {
         ctrl.startGame('easy', 'user');
 
-        expect(ctrl.deck[0]).toEqual({id: 0, image:1, show: false});
+        expect(ctrl.deck[0]).toEqual({id: 0, image: 1, show: false});
     });
 
     it('all cards in deck should match card specification: {id: int, image: int, show: bool}', () => {
         ctrl.startGame('easy', 'user');
         let deck = ctrl.deck;
 
-        for(let i=0; i<deck.length; i++) {
-            expect(ctrl.deck[i]).toEqual({id: i, image:1, show: false});
+        for (let i = 0; i < deck.length; i++) {
+            expect(ctrl.deck[i]).toEqual({id: i, image: 1, show: false});
         }
     });
 
     it('card.image should use _getRandomNumber()', () => {
-        let random = Math.round(Math.random()*7);
+        let random = Math.round(Math.random() * 7);
         ctrl._getRandomNumber = (max: number) => {
             return random;
         };
@@ -103,7 +114,6 @@ describe('GameManager.startGame', () => {
         expect(ctrl.deck[0].image).toEqual(random);
     });
 });
-
 
 
 describe('GameManager._getRandomNumber', () => {
@@ -120,17 +130,17 @@ describe('GameManager._getRandomNumber', () => {
     it('should return a whole number', () => {
         let result = ctrl._getRandomNumber(7);
 
-        if(typeof result === 'number') {
+        if (typeof result === 'number') {
             expect(result % 1 != 0).toBe(false);
         }
     });
 
     it('should always return a number smaller than max', () => {
         let isGreater = false;
-        for(let i =0; i<256; i++) {
+        for (let i = 0; i < 256; i++) {
             let result = ctrl._getRandomNumber(7);
-            if(typeof result === 'number') {
-                if(result > 7) isGreater = true;
+            if (typeof result === 'number') {
+                if (result > 7) isGreater = true;
             } else {
                 isGreater = true;
             }
@@ -140,10 +150,10 @@ describe('GameManager._getRandomNumber', () => {
 
     it('should always return a number greater or equal to zero', () => {
         let isSmaller = false;
-        for(let i =0; i<256; i++) {
+        for (let i = 0; i < 256; i++) {
             let result = ctrl._getRandomNumber(7);
-            if(typeof result === 'number') {
-                if(result < 0) isSmaller = true;
+            if (typeof result === 'number') {
+                if (result < 0) isSmaller = true;
             } else {
                 isSmaller = true;
             }
@@ -152,37 +162,34 @@ describe('GameManager._getRandomNumber', () => {
     });
 
     it('should guarantee a valid deck', () => {
-
         let deck = [];
-        for(let i =0; i<15; i++) {
-            let image = i < 8 ? i:i-8;
+        for (let i = 0; i < 15; i++) {
+            let image = i < 8 ? i : i - 8;
             deck.push({id: i, image: image, show: false})
         }
         ctrl.deck = deck;
 
         let result = ctrl._getRandomNumber(7);
-        if(typeof result === 'number') {
+        if (typeof result === 'number') {
             expect(result).toBe(7);
         }
     });
 
     it('should return every number exactly twice in a deck', () => {
-
         let deck = ctrl.deck;
-        for(let i =0; i<16; i++) {
+        for (let i = 0; i < 16; i++) {
             deck.push({id: i, image: ctrl._getRandomNumber(7), show: false})
         }
 
-        for(let i =0; i<8; i++) {
+        for (let i = 0; i < 8; i++) {
             let occurrences = 0;
-            for(let j =0; j<deck.length; j++) {
-                if(deck[j].image === i) occurrences++;
+            for (let j = 0; j < deck.length; j++) {
+                if (deck[j].image === i) occurrences++;
             }
             expect(occurrences).toBe(2);
         }
     });
 });
-
 
 
 describe('GameManager.showCard', () => {
@@ -193,18 +200,18 @@ describe('GameManager.showCard', () => {
 
         ctrl.game = {
             difficulty: 'easy',
-            startTime : new Date(),
-            endTime   : null,
-            won       : false,
-            lost      : false,
-            started   : true,
-            locked    : false,
-            turns     : 0
+            startTime: new Date(),
+            endTime: null,
+            won: false,
+            lost: false,
+            started: true,
+            locked: false,
+            turns: 0
         };
 
         let deck = [];
-        for(let i =0; i<16; i++) {
-            let image = i < 8 ? i:i-8;
+        for (let i = 0; i < 16; i++) {
+            let image = i < 8 ? i : i - 8;
             deck.push({id: i, image: image, show: false})
         }
 
@@ -271,24 +278,23 @@ describe('GameManager.showCard', () => {
     });
 
     it('should mark game as won if all cards are open', () => {
-        for(let i=0; i<8; i++) {
+        for (let i = 0; i < 8; i++) {
             ctrl.showCard(i);
-            ctrl.showCard(i+8);
+            ctrl.showCard(i + 8);
         }
 
         expect(ctrl.game.won).toBe(true);
     });
 
     it('should fill endTime if finished', () => {
-        for(let i=0; i<8; i++) {
+        for (let i = 0; i < 8; i++) {
             ctrl.showCard(i);
-            ctrl.showCard(i+8);
+            ctrl.showCard(i + 8);
         }
 
         expect(ctrl.game.endTime instanceof Date).toBe(true);
     });
 });
-
 
 
 describe('GameManager.resetGame', () => {
@@ -299,18 +305,18 @@ describe('GameManager.resetGame', () => {
 
         ctrl.game = {
             difficulty: 'easy',
-            startTime : new Date(),
-            endTime   : new Date(),
-            won       : true,
-            lost      : false,
-            started   : true,
-            locked    : false,
-            turns     : 32
+            startTime: new Date(),
+            endTime: new Date(),
+            won: true,
+            lost: false,
+            started: true,
+            locked: false,
+            turns: 32
         };
 
         let deck = [];
-        for(let i =0; i<16; i++) {
-            let image = i < 8 ? i:i-8;
+        for (let i = 0; i < 16; i++) {
+            let image = i < 8 ? i : i - 8;
             deck.push({id: i, image: image, show: false})
         }
 
@@ -326,6 +332,15 @@ describe('GameManager.resetGame', () => {
     it('should reset the game', () => {
         ctrl.resetGame();
 
-        expect(ctrl.game).toEqual({difficulty: null, startTime: null, endTime: null, turns: 0, started: false, won: false, lost: false, locked: false});
+        expect(ctrl.game).toEqual({
+            difficulty: null,
+            startTime: null,
+            endTime: null,
+            turns: 0,
+            started: false,
+            won: false,
+            lost: false,
+            locked: false
+        });
     });
 });

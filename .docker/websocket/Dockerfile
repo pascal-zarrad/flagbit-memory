@@ -4,4 +4,4 @@ RUN npm install ws
 RUN mkdir -p /var/www
 WORKDIR /var/www
 
-CMD [ "node", "server.js"]
+CMD [ "node", "js/server.js"]

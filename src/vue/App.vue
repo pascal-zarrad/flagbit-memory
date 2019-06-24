@@ -1,8 +1,8 @@
 <template>
     <div class="flagbit-memory">
-        <div class="memory-container" :class="getDeckClass">
-            <card :card="card" v-for="(card, id) in deck" :key="id" />
-            <div v-if="game.started === false" class="popup start">
+        <div :class="getDeckClass" class="memory-container">
+            <card :card="card" :key="id" v-for="(card, id) in deck"/>
+            <div class="popup start" v-if="game.started === false">
                 <div v-if="features === 'full'">
                     <div>
                         <label for="game-user">Name</label><br>
@@ -10,9 +10,13 @@
                     </div>
                     <div>
                         <br>Difficulty<br>
-                        <button @click="startGame('easy')" :disabled="user.length < 3">Easy</button>
-                        <button @click="startGame('normal')" :disabled="user.length < 3">Normal</button>
-                        <button @click="startGame('hard')" :disabled="user.length < 3">Hard</button>
+                        <button :disabled="user.length < 3" @click="startGame('easy')">Easy</button>
+                        <!--
+                            Currently, no concept is available for to differentiate between normal and hard,
+                            so normal has been disabled.
+                         -->
+                        <!-- <button :disabled="user.length < 3" @click="startGame('normal')">Normal</button>-->
+                        <button :disabled="user.length < 3" @click="startGame('hard')">Hard</button>
                     </div>
                 </div>
                 <div v-else>
@@ -21,7 +25,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="game.won === true" class="popup win">
+            <div class="popup win" v-if="game.won === true">
                 <div>
                     You Won!
                     <br><br><br>You did it in {{ time }} Seconds.
@@ -30,7 +34,7 @@
                     <button @click="resetGame">Click here to start again</button>
                 </div>
             </div>
-            <div v-if="game.lost === true" class="popup lose" @click="resetGame">
+            <div @click="resetGame" class="popup lose" v-if="game.lost === true">
                 <div>
                     You lost!
                     <br><br><br>You tried your best but it wasn't enough.
@@ -38,7 +42,7 @@
                     <button @click="resetGame">Click here to start again</button>
                 </div>
             </div>
-            <div v-if="game.locked === true" class="popup locked">
+            <div class="popup locked" v-if="game.locked === true">
             </div>
         </div>
         <div class="game-stats">
@@ -47,6 +51,42 @@
             {{game.turns}} Turns
             <br>
             {{time}} Seconds
+            <!-- Changes for highscore -->
+            <br><br>
+            <div v-if="statistics && statistics.highscoreStatistics && statistics.highscoreStatistics.game[0]">
+                <div class="title">Highscore</div>
+                <br>
+                <b>Easy:</b>
+                <br>
+                User: {{statistics.highscoreStatistics.game[0].users[0].username}}
+                <br>
+                {{statistics.highscoreStatistics.game[0].users[0].turns}} Turns
+                <br>
+                {{statistics.highscoreStatistics.game[0].users[0].timeRequired}} Seconds
+                <!--
+                    Normal mode is not implemented, so donät display the stats
+                    If the normal mode is being implemented,
+                    uncomment the following code block and remove this comment:
+                -->
+                <!--
+                <br><br>
+                <b>Normal:</b>
+                <br>
+                User: {{statistics.highscoreStatistics.game[1].users[0].username}}
+                <br>
+                {{statistics.highscoreStatistics.game[1].users[0].turns}} Turns
+                <br>
+                {{statistics.highscoreStatistics.game[1].users[0].timeRequired}} Seconds
+                -->
+                <br><br>
+                <b>Hard:</b>
+                <br>
+                User: {{statistics.highscoreStatistics.game[2].users[0].username}}
+                <br>
+                {{statistics.highscoreStatistics.game[2].users[0].turns}} Turns
+                <br>
+                {{statistics.highscoreStatistics.game[2].users[0].timeRequired}} Seconds
+            </div>
         </div>
     </div>
 </template>
@@ -65,11 +105,12 @@
         data() {
             return {
                 features: GameManager.features,
-                deck    : GameManager.deck,
-                game    : GameManager.game,
-                user    : '',
-                time    : 0,
-                interval: null
+                deck: GameManager.deck,
+                game: GameManager.game,
+                user: '',
+                time: 0,
+                interval: null,
+                statistics: GameManager.statsManager
             }
         },
 
@@ -86,7 +127,9 @@
                     this.deck = GameManager.deck;
                     this.game = GameManager.game;
 
-                    this.interval = setInterval(() => { this.time++ }, 1000)
+                    this.interval = setInterval(() => {
+                        this.time++
+                    }, 1000)
                 }
             },
             resetGame() {
@@ -96,7 +139,7 @@
                 this.time = 0;
             }
         },
-        watch  : {
+        watch: {
             'game.endTime'() {
                 if (this.game.endTime !== null) {
                     clearInterval(this.interval);
@@ -108,89 +151,90 @@
 
 <style lang="scss">
     @font-face {
-        font-family : 'Flagbit';
-        font-style  : normal;
-        font-weight : 400;
-        src         : url(../fonts/Flagbit.ttf) format('truetype');
+        font-family: 'Flagbit';
+        font-style: normal;
+        font-weight: 400;
+        src: url(../fonts/Flagbit.ttf) format('truetype');
     }
 
     body {
-        font-family : Flagbit, sans-serif;
+        font-family: Flagbit, sans-serif;
     }
 
     .memory-container {
-        display               : grid;
-        grid-template-columns : 1fr 1fr 1fr 1fr;
-        grid-column-gap       : 10px;
-        grid-row-gap          : 10px;
-        position              : relative;
-        margin                : 0 auto;
-        height                : 998px;
-        width                 : 998px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
+        position: relative;
+        margin: 0 auto;
+        height: 998px;
+        width: 998px;
 
         .popup {
-            display          : flex;
-            align-items      : center;
-            justify-content  : center;
-            background-color : transparentize($color-blue, 0.15);
-            border-radius    : 4px;
-            position         : absolute;
-            top              : 0;
-            right            : 0;
-            left             : 0;
-            bottom           : 0;
-            color            : $color-white;
-            font-size        : 20pt;
-            text-align       : center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparentize($color-blue, 0.15);
+            border-radius: 4px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            color: $color-white;
+            font-size: 20pt;
+            text-align: center;
 
             &.start {
-                background-color : $color-blue;
+                background-color: $color-blue;
             }
+
             &.locked {
-                background-color : transparentize($color-blue, 0.75);
+                background-color: transparentize($color-blue, 0.75);
             }
         }
 
         &.deck-large {
-            grid-template-columns : 1fr 1fr 1fr 1fr 1fr 1fr;
-            grid-column-gap       : 7px;
-            grid-row-gap          : 7px;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-column-gap: 7px;
+            grid-row-gap: 7px;
         }
 
         input,
         button {
-            background-color : $color-white;
-            color            : $color-blue;
-            font-family      : Flagbit, sans-serif;
-            padding          : 15px 15px 13px;
-            border           : none;
-            border-radius    : 5px;
-            font-size        : 12pt;
+            background-color: $color-white;
+            color: $color-blue;
+            font-family: Flagbit, sans-serif;
+            padding: 15px 15px 13px;
+            border: none;
+            border-radius: 5px;
+            font-size: 12pt;
 
             &:disabled {
-                background-color : $color-grey;
-                cursor           : default;
+                background-color: $color-grey;
+                cursor: default;
             }
         }
 
         button {
-            cursor : pointer;
+            cursor: pointer;
         }
     }
 
     .game-stats {
-        position   : fixed;
-        left       : 50px;
-        top        : 50px;
-        border     : 1px solid $color-grey;
-        text-align : center;
-        padding    : 15px 30px;
-        background : transparentize($color-white, 0.5);
+        position: fixed;
+        left: 50px;
+        top: 50px;
+        border: 1px solid $color-grey;
+        text-align: center;
+        padding: 15px 30px;
+        background: transparentize($color-white, 0.5);
 
         .title {
-            color       : $color-blue;
-            font-weight : bold;
-            font-size   : 16pt;
+            color: $color-blue;
+            font-weight: bold;
+            font-size: 16pt;
         }
     }
 </style>

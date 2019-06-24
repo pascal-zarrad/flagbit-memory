@@ -1,42 +1,22 @@
 version: '2'
 
 services:
-  app:
-    image: php:7-fpm-alpine
-    container_name: "memory-php"
-    restart: on-failure
-    volumes:
-      - ./src/:/var/www/html/
-    environment:
-      - NEXTCLOUD_ADMIN_USER=admin
-      - NEXTCLOUD_ADMIN_PASSWORD=admin
-      - MYSQL_PASSWORD=memory
-      - MYSQL_DATABASE=memory
-      - MYSQL_USER=memory
-      - MYSQL_HOST=mysql:3306
-
   web:
     image: nginx:1-alpine
-    container_name: "memory-nginx"
+    container_name: "memory-frontend"
     restart: on-failure
     ports:
       - 80:80
       - 443:443
-    links:
-      - app
-    volumes_from:
-      - app
     volumes:
       - ./.docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./src/:/var/www/html
 
   websocket:
     build: "./.docker/websocket/"
-    container_name: "memory-websocket"
+    container_name: "memory-mp"
     restart: on-failure
     ports:
       - 8080:8080
     volumes:
-      - ./src/js/server.js:/var/www/server.js
-
-volumes:
-  mysql:
+      - ./src/:/var/www/

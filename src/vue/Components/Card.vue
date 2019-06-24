@@ -1,8 +1,8 @@
 <template>
-    <div class="memory-card" :class="{active:card.show}" @click="showCard">
+    <div :class="{active:card.show}" @click="showCard" class="memory-card">
         <div class="flipper">
             <div class="front"></div>
-            <div class="back" :style="getImage"></div>
+            <div :style="getImage" class="back"></div>
         </div>
     </div>
 </template>
@@ -33,42 +33,42 @@
 
 <style lang="scss">
     .memory-card {
-        width       : 240px;
-        height      : 240px;
-        border      : 1px solid $color-grey;
-        perspective : 1000px;
+        width: 240px;
+        height: 240px;
+        border: 1px solid $color-grey;
+        perspective: 1000px;
 
         .front,
         .back {
-            width               : 240px;
-            height              : 240px;
-            background-repeat   : no-repeat;
-            background-position : center;
-            background-size     : cover;
-            backface-visibility : hidden;
-            position            : absolute;
-            top                 : 0;
-            left                : 0;
+            width: 240px;
+            height: 240px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .front {
-            background-image : url(/img/card-back.png);
-            z-index          : 2;
-            transform        : rotateY(0deg);
+            background-image: url(/img/card-back.png);
+            z-index: 2;
+            transform: rotateY(0deg);
         }
 
         .back {
-            transform : rotateY(180deg);
+            transform: rotateY(180deg);
         }
 
         .flipper {
-            transition      : 0.6s;
-            transform-style : preserve-3d;
-            position        : relative;
+            transition: 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
         }
 
         &.active .flipper {
-            transform : rotateY(180deg);
+            transform: rotateY(180deg);
         }
     }
 
@@ -76,8 +76,8 @@
         .back,
         .front,
         .memory-card {
-            width  : 158px;
-            height : 158px;
+            width: 158px;
+            height: 158px;
         }
     }
 </style>

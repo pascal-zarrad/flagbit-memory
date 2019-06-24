@@ -13,7 +13,7 @@ module.exports = env => {
         new webpack.DefinePlugin(
             {
                 'process.env': {
-                    NODE_ENV: production ? '"production"':'"development"'
+                    NODE_ENV: production ? '"production"' : '"development"'
                 }
             }
         ),
@@ -28,13 +28,13 @@ module.exports = env => {
                 {
                     uglifyOptions: {
                         beautify: false,
-                        ecma    : 6,
+                        ecma: 6,
                         compress: true,
                         comments: false,
-                        ascii   : true
+                        ascii: true
                     },
-                    cache        : true,
-                    parallel     : true
+                    cache: true,
+                    parallel: true
                 }
             )
         );
@@ -42,48 +42,48 @@ module.exports = env => {
     }
 
     return {
-        entry  : {
-            app   : __dirname + '/src/js/app.js'
+        entry: {
+            app: __dirname + '/src/js/app.js'
         },
-        output : {
-            path         : __dirname + '/src/',
-            filename     : 'dist/[name].js',
+        output: {
+            path: __dirname + '/src/',
+            filename: 'dist/[name].js',
             chunkFilename: 'dist/[name].js'
         },
         resolve: {
-            modules   : ['node_modules', 'src'],
+            modules: ['node_modules', 'src'],
             extensions: ['.js', '.vue', '.scss'],
-            alias     : {
-                'vue$' : 'vue/dist/vue.esm.js',
-                '@'    : __dirname + '/src',
-                '@js'  : __dirname + '/src/js',
-                '@vue' : __dirname + '/src/vue',
+            alias: {
+                'vue$': 'vue/dist/vue.esm.js',
+                '@': __dirname + '/src',
+                '@js': __dirname + '/src/js',
+                '@vue': __dirname + '/src/vue',
                 '@scss': __dirname + '/src/scss'
             }
         },
-        module : {
+        module: {
             loaders: [
                 {
                     test: /\.tsx?$/,
                     loader: 'ts-loader'
                 },
                 {
-                    test   : /\.vue$/,
-                    loader : 'vue-loader',
+                    test: /\.vue$/,
+                    loader: 'vue-loader',
                     options: {
                         extractCSS: true,
-                        loaders   : {
+                        loaders: {
                             scss: ExtractTextPlugin.extract(
                                 {
-                                    use     : [
+                                    use: [
                                         {
-                                            loader : 'css-loader',
+                                            loader: 'css-loader',
                                             options: {minimize: production}
                                         }, {
-                                            loader : 'sass-loader',
+                                            loader: 'sass-loader',
                                             options: {minimize: production}
                                         }, {
-                                            loader : 'sass-resources-loader',
+                                            loader: 'sass-resources-loader',
                                             options: {resources: 'src/scss/Partials/_variables.scss'}
                                         }
                                     ],
@@ -94,29 +94,29 @@ module.exports = env => {
                     }
                 }, {
                     test: /\.scss$/,
-                    use : ExtractTextPlugin.extract(
+                    use: ExtractTextPlugin.extract(
                         {
                             use: [
                                 {
-                                    loader : 'css-loader',
+                                    loader: 'css-loader',
                                     options: {minimize: production}
                                 }, {
-                                    loader : 'sass-loader',
+                                    loader: 'sass-loader',
                                     options: {minimize: production}
                                 }, {
-                                    loader : 'sass-resources-loader',
+                                    loader: 'sass-resources-loader',
                                     options: {resources: 'src/scss/Partials/_variables.scss'}
                                 }
                             ]
                         }
                     )
                 }, {
-                    test   : /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-                    loader : 'url-loader',
+                    test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+                    loader: 'url-loader',
                     options: {
-                        limit          : 2048,
-                        outputPath     : 'css/',
-                        publicPath     : './',
+                        limit: 2048,
+                        outputPath: 'css/',
+                        publicPath: './',
                         useRelativePath: false
                     }
                 }
