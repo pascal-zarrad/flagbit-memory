@@ -11,11 +11,7 @@
                     <div>
                         <br>Difficulty<br>
                         <button :disabled="user.length < 3" @click="startGame('easy')">Easy</button>
-                        <!--
-                            Currently, no concept is available for to differentiate between normal and hard,
-                            so normal has been disabled.
-                         -->
-                        <!-- <button :disabled="user.length < 3" @click="startGame('normal')">Normal</button>-->
+                        <button :disabled="user.length < 3" @click="startGame('normal')">Normal</button>
                         <button :disabled="user.length < 3" @click="startGame('hard')">Hard</button>
                     </div>
                 </div>
@@ -63,12 +59,6 @@
                 {{statistics.highscoreStatistics.game[0].users[0].turns}} Turns
                 <br>
                 {{statistics.highscoreStatistics.game[0].users[0].timeRequired}} Seconds
-                <!--
-                    Normal mode is not implemented, so donät display the stats
-                    If the normal mode is being implemented,
-                    uncomment the following code block and remove this comment:
-                -->
-                <!--
                 <br><br>
                 <b>Normal:</b>
                 <br>
@@ -77,7 +67,6 @@
                 {{statistics.highscoreStatistics.game[1].users[0].turns}} Turns
                 <br>
                 {{statistics.highscoreStatistics.game[1].users[0].timeRequired}} Seconds
-                -->
                 <br><br>
                 <b>Hard:</b>
                 <br>

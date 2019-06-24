@@ -153,7 +153,6 @@ export default class GameManager {
         this._game.lost = false;
         this._game.locked = false;
         this._game.turns = 0;
-        this._openCards = [];
         this._user = user;
         this._socketManager.regenerateClientID();
         if (typeof this._socketManager.currentGameID === "undefined") {
@@ -180,13 +179,9 @@ export default class GameManager {
             case 'hard':
                 iMax = 36;
                 break;
-            /*
-                Normal mode is not implemented yet
-
-                case 'normal':
-                    iMax = 36;
-                    break;
-             */
+            case 'normal':
+                iMax = 36;
+                break;
             default:
                 iMax = 16;
                 break;
@@ -286,6 +281,9 @@ export default class GameManager {
                     this._game.turns++;
                     break;
             }
+        }
+        if (this.game.difficulty === 'hard' && this._game.turns >= 90) {
+            this.lostGame();
         }
         // Check if the user has got all cards and trigger the game won scenario
         if (this._checkWin()) {
