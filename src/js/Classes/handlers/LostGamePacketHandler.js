@@ -27,11 +27,9 @@ define(["require", "exports", "./PacketHandler", "../packets/Packet"], function 
      */
     var LostGamePacketHandler = /** @class */ (function (_super) {
         __extends(LostGamePacketHandler, _super);
-
         function LostGamePacketHandler(gameManager) {
             return _super.call(this, Packet_1.Packets.LOST_GAME, true, gameManager) || this;
         }
-
         LostGamePacketHandler.prototype.handle = function (packet) {
             if (!this.gameManager.game.lost) {
                 this.gameManager.lostGame();

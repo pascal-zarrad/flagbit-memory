@@ -27,11 +27,9 @@ define(["require", "exports", "./PacketHandler", "../packets/Packet", "../statis
      */
     var ShareStatisticsPacketHandler = /** @class */ (function (_super) {
         __extends(ShareStatisticsPacketHandler, _super);
-
         function ShareStatisticsPacketHandler(gameManager) {
             return _super.call(this, Packet_1.Packets.SHARE_STATISTICS, true, gameManager) || this;
         }
-
         ShareStatisticsPacketHandler.prototype.handle = function (packet) {
             if (this.gameManager.socketManager.currentGameID === packet.gameID) {
                 var shareStatisticsPacket = packet;

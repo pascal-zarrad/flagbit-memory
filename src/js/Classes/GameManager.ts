@@ -327,7 +327,23 @@ export default class GameManager {
         if (typeof time === "boolean") {
             return;
         }
+        this.openCards[0] = -1;
+        this.openCards[1] = -1;
         this.socketManager.sendPacket(new ShareStatisticsPacket(typeof this.socketManager.currentGameID === "undefined" ? "" : this.socketManager.currentGameID, this.socketManager.ownClientID, this.socketManager.clients, this.user, this.game.turns, <number>time));
+        if (this._game.difficulty === 'hard') {
+            if (typeof this.statsManager.currentStatistics !== 'undefined' && (this.socketManager.clients.length - this.statsManager.currentStatistics.game[0].users.length) <= 1) {
+                this._game.endTime = new Date();
+                let time = this.getTimeRequiredInSeconds();
+                if (typeof time === "boolean") {
+                    return; // Return. Winner can't calculate stats, so continuing with statistics collection makes no sense
+                }
+                let lastLooser = new User(this.user, <number>time, this.game.turns, false);
+                this.statsManager.currentStatistics.game[0].winner = '';
+                this.statsManager.currentStatistics.game[0].difficulty = this._game.difficulty;
+                this.statsManager.currentStatistics.game[0].users.push(lastLooser);
+                this._statsManager.sendStatistics(<Statistics>this.statsManager.currentStatistics); // As it seems that all users have lost, this client sends the statistics.
+            }
+        }
         this._socketManager.endNetworkGame();
     }
 

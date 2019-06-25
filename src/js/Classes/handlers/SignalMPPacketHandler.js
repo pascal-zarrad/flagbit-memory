@@ -28,11 +28,9 @@ define(["require", "exports", "./PacketHandler", "../packets/Packet", "../packet
      */
     var SignalMPPacketHandler = /** @class */ (function (_super) {
         __extends(SignalMPPacketHandler, _super);
-
         function SignalMPPacketHandler(gameManager) {
             return _super.call(this, Packet_1.Packets.SIGNAL_MP, true, gameManager) || this;
         }
-
         SignalMPPacketHandler.prototype.handle = function (packet) {
             var signalMPPacket = packet;
             if (this.gameManager.socketManager.ownClientID === signalMPPacket.receiver) {

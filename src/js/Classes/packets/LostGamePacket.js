@@ -29,11 +29,9 @@ define(["require", "exports", "./Packet"], function (require, exports, Packet_1)
      */
     var LostGamePacket = /** @class */ (function (_super) {
         __extends(LostGamePacket, _super);
-
         function LostGamePacket(gameID, clientID, clients) {
             return _super.call(this, gameID, clientID, Packet_1.Packets.LOST_GAME, clients) || this;
         }
-
         return LostGamePacket;
     }(Packet_1.default));
     exports.default = LostGamePacket;

@@ -28,11 +28,9 @@ define(["require", "exports", "./PacketHandler", "../packets/Packet", "../packet
      */
     var StartGamePacketHandler = /** @class */ (function (_super) {
         __extends(StartGamePacketHandler, _super);
-
         function StartGamePacketHandler(gameManager) {
             return _super.call(this, Packet_1.Packets.START_GAME, false, gameManager) || this;
         }
-
         StartGamePacketHandler.prototype.handle = function (packet) {
             if (typeof this.gameManager.socketManager.currentGameID === "undefined" && !this.gameManager.game.started) {
                 var userNameField = document.getElementById('game-user');

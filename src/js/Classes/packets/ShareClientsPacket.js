@@ -28,13 +28,11 @@ define(["require", "exports", "./Packet"], function (require, exports, Packet_1)
      */
     var ShareClientsPacket = /** @class */ (function (_super) {
         __extends(ShareClientsPacket, _super);
-
         function ShareClientsPacket(gameID, clientID, clients, clientUser) {
             var _this = _super.call(this, gameID, clientID, Packet_1.Packets.SHARE_CLIENTS, clients) || this;
             _this.clientsUser = clientUser;
             return _this;
         }
-
         return ShareClientsPacket;
     }(Packet_1.default));
     exports.default = ShareClientsPacket;

@@ -27,14 +27,12 @@ define(["require", "exports", "./Packet"], function (require, exports, Packet_1)
      */
     var StartGamePacket = /** @class */ (function (_super) {
         __extends(StartGamePacket, _super);
-
         function StartGamePacket(gameID, clientID, clients, deck, difficulty) {
             var _this = _super.call(this, gameID, clientID, Packet_1.Packets.START_GAME, clients) || this;
             _this.deck = deck;
             _this.difficulty = difficulty;
             return _this;
         }
-
         return StartGamePacket;
     }(Packet_1.default));
     exports.default = StartGamePacket;

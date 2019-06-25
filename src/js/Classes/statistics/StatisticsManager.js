@@ -33,7 +33,6 @@ define(["require", "exports", "./Statistics", "../../config.client"], function (
             ]);
             this.requestHighScores();
         }
-
         Object.defineProperty(StatisticsManager.prototype, "currentStatistics", {
             get: function () {
                 return this._currentStatistics;
