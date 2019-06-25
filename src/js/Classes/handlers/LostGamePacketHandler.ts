@@ -12,7 +12,9 @@ export default class LostGamePacketHandler extends PacketHandler {
     }
 
     public handle<T extends Packet>(packet: T): void {
-        this.gameManager.lostGame();
+        if (!this.gameManager.game.lost) {
+            this.gameManager.lostGame();
+        }
     }
 
 }

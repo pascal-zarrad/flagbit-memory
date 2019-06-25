@@ -12,7 +12,6 @@ var __extends = (this && this.__extends) || (function () {
         function __() {
             this.constructor = d;
         }
-
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
@@ -23,6 +22,9 @@ define(["require", "exports", "./PacketHandler", "../packets/Packet", "../statis
     "use strict";
     Object.defineProperty(exports, "__esModule", {value: true});
     PacketHandler_1 = __importDefault(PacketHandler_1);
+    /**
+     * Handles ShareStatisticsPackets
+     */
     var ShareStatisticsPacketHandler = /** @class */ (function (_super) {
         __extends(ShareStatisticsPacketHandler, _super);
 
@@ -31,13 +33,10 @@ define(["require", "exports", "./PacketHandler", "../packets/Packet", "../statis
         }
 
         ShareStatisticsPacketHandler.prototype.handle = function (packet) {
-            if (this.gameManager.game.won && this.gameManager.socketManager.currentGameID === packet.gameID) {
+            if (this.gameManager.socketManager.currentGameID === packet.gameID) {
                 var shareStatisticsPacket = packet;
                 if (typeof this.gameManager.statsManager.currentStatistics !== "undefined") {
-                    var time = this.gameManager.getTimeRequiredInSeconds();
-                    if (typeof time === "boolean") {
-                        return; // Return. Winner can't calculate stats, so continuing with statistics collection makes no sense
-                    }
+                    var time = shareStatisticsPacket.timeRequired;
                     this.gameManager.statsManager.currentStatistics.game[0].users.push(new Statistics_1.User(shareStatisticsPacket.user, time, shareStatisticsPacket.turns, false));
                 }
             }

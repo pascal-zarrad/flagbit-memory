@@ -12,7 +12,6 @@ var __extends = (this && this.__extends) || (function () {
         function __() {
             this.constructor = d;
         }
-
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
@@ -24,6 +23,9 @@ define(["require", "exports", "./PacketHandler", "../packets/Packet", "../packet
     Object.defineProperty(exports, "__esModule", {value: true});
     PacketHandler_1 = __importDefault(PacketHandler_1);
     ShareClientsPacket_1 = __importDefault(ShareClientsPacket_1);
+    /**
+     * Handles SignalMPPackets
+     */
     var SignalMPPacketHandler = /** @class */ (function (_super) {
         __extends(SignalMPPacketHandler, _super);
 

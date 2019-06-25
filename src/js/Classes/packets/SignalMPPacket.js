@@ -12,7 +12,6 @@ var __extends = (this && this.__extends) || (function () {
         function __() {
             this.constructor = d;
         }
-
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
@@ -23,6 +22,10 @@ define(["require", "exports", "./Packet"], function (require, exports, Packet_1)
     "use strict";
     Object.defineProperty(exports, "__esModule", {value: true});
     Packet_1 = __importDefault(Packet_1);
+    /**
+     * Signals that the client is going to participate in thr game that has been broad casted
+     * using a StartGamePacket
+     */
     var SignalMPPacket = /** @class */ (function (_super) {
         __extends(SignalMPPacket, _super);
 

@@ -12,7 +12,6 @@ var __extends = (this && this.__extends) || (function () {
         function __() {
             this.constructor = d;
         }
-
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
@@ -23,6 +22,10 @@ define(["require", "exports", "./Packet"], function (require, exports, Packet_1)
     "use strict";
     Object.defineProperty(exports, "__esModule", {value: true});
     Packet_1 = __importDefault(Packet_1);
+    /**
+     * A packet used to share the known clients of the host with all player participating in
+     * the current game.
+     */
     var ShareClientsPacket = /** @class */ (function (_super) {
         __extends(ShareClientsPacket, _super);
 

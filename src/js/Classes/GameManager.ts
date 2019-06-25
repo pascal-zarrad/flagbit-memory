@@ -155,6 +155,7 @@ export default class GameManager {
         this._game.turns = 0;
         this._user = user;
         this._socketManager.regenerateClientID();
+        this.statsManager.currentStatistics = new Statistics([new Game([], "", <string>this.game.difficulty)]);
         if (typeof this._socketManager.currentGameID === "undefined") {
             this._shuffleDeck();
             this._socketManager.regenerateGameID();
@@ -297,10 +298,14 @@ export default class GameManager {
                 return; // Difficulty not set, can't calculate stats. Some problem like in time.
             }
             let winnerUser = new User(this.user, <number>time, this.game.turns, true);
-            this.statsManager.currentStatistics = new Statistics([new Game([winnerUser], winnerUser.username, <string>this.game.difficulty)]);
+            if ('undefined' !== typeof this.statsManager.currentStatistics) {
+                this.statsManager.currentStatistics.game[0].winner = winnerUser.username;
+                this.statsManager.currentStatistics.game[0].difficulty = this.game.difficulty;
+                this.statsManager.currentStatistics.game[0].users.push(winnerUser);
+            }
             // Send statistics
-            // Sending them 2 seconds after Game finish.
-            // It should never take more than 2 seconds to answer with their stats for online clients
+            // Sending them 0.5 seconds after Game finish.
+            // It should never take more than 0.5 seconds to answer with their stats for online clients
             setTimeout(() => {
                 if (typeof this._statsManager.currentStatistics !== "undefined") {
                     this._statsManager.sendStatistics(<Statistics>this.statsManager.currentStatistics);

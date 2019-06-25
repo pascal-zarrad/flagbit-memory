@@ -5,7 +5,6 @@ define(["require", "exports"], function (require, exports) {
         function Statistics(game) {
             this.game = game;
         }
-
         return Statistics;
     }());
     exports.Statistics = Statistics;
@@ -15,7 +14,6 @@ define(["require", "exports"], function (require, exports) {
             this.winner = winner;
             this.difficulty = difficulty;
         }
-
         return Game;
     }());
     exports.Game = Game;
@@ -26,7 +24,6 @@ define(["require", "exports"], function (require, exports) {
             this.turns = turns;
             this.winner = winner;
         }
-
         return User;
     }());
     exports.User = User;
@@ -35,7 +32,6 @@ define(["require", "exports"], function (require, exports) {
             this.errorCode = errorCode;
             this.errorMessage = errorMessage;
         }
-
         return ResponseError;
     }());
     exports.ResponseError = ResponseError;

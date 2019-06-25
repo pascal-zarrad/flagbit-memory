@@ -1,6 +1,10 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {value: true});
+    /**
+     * An abstract packet that provides the most basic information
+     * that is required to process a packet
+     */
     var Packet = /** @class */ (function () {
         function Packet(gameID, clientID, packetID, clients) {
             this.gameID = gameID;
@@ -8,7 +12,6 @@ define(["require", "exports"], function (require, exports) {
             this.packetID = packetID;
             this.clients = clients;
         }
-
         return Packet;
     }());
     exports.default = Packet;

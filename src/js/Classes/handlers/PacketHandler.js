@@ -1,13 +1,15 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {value: true});
+    /**
+     * A abstract packet handler that provides the structure of a packet handler
+     */
     var PacketHandler = /** @class */ (function () {
         function PacketHandler(packetID, handleOnlyTargeted, gameManager) {
             this._packetID = packetID;
             this._handleOnlyTargeted = handleOnlyTargeted;
             this._gameManager = gameManager;
         }
-
         Object.defineProperty(PacketHandler.prototype, "packetID", {
             get: function () {
                 return this._packetID;
