@@ -371,7 +371,7 @@ export default class GameManager {
      */
     getTimeRequiredInSeconds(): number | boolean {
         if (this.game.endTime !== null && this.game.startTime !== null) {
-            return Math.abs((this.game.endTime.getTime() - this.game.startTime.getTime()) / 1000);
+            return Math.round(Math.abs((this.game.endTime.getTime() - this.game.startTime.getTime()) / 1000));
         } else {
             return false;
         }
