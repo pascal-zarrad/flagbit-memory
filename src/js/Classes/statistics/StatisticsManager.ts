@@ -100,7 +100,6 @@ export default class StatisticsManager {
             return false;
         }
         let ajaxURL = CLIENT_CONFIG.AJAX_URL + "/add";
-        console.log(ajaxURL);
         let ajax: XMLHttpRequest = new XMLHttpRequest();
         ajax.onreadystatechange = () => {
             if (ajax.readyState === XMLHttpRequest.DONE) {
